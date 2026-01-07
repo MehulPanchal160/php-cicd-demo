@@ -1,9 +1,9 @@
-name: PHP CI + FTP Deployment
+name: PHP CI + Deploy to EC2
 
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build-and-deploy:
@@ -21,13 +21,12 @@ jobs:
       - name: Run Tests
         run: php tests/CalculatorTest.php
 
-      - name: Deploy to FTP Server
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Deploy to AWS EC2 via SSH
+        uses: appleboy/scp-action@v0.1.4
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          port: ${{ secrets.FTP_PORT }}
-          server-dir: ${{ secrets.FTP_PATH }}
-          passive : true 
-          
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "."
+          target: ${{ secrets.EC2_APP_PATH }}
+          timeout: 600000
