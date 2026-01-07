@@ -29,4 +29,3 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           source: "."
           target: ${{ secrets.EC2_APP_PATH }}
-          timeout: 600000
