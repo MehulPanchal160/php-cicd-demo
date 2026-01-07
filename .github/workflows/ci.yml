@@ -3,7 +3,7 @@ name: PHP CI + FTP Deployment
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build-and-deploy:
