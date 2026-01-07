@@ -13,3 +13,13 @@ jobs:
           php-version: '8.2'
       - name: Run Tests
         run: php tests/CalculatorTest.php
+
+        
+      - name: Deploy to Server via SFTP
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SFTP_HOST }}
+          username: ${{ secrets.SFTP_USER }}
+          password: ${{ secrets.SFTP_PASSWORD }}
+          source: "."
+          target: ${{ secrets.SFTP_PATH }}
